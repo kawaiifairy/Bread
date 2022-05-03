@@ -2,6 +2,10 @@
 
 (不知道叫什么,  看示例qwq  
 
+## 结构
+
+![structure](structure.png)
+
 ## 示例
 
 ```sharp
