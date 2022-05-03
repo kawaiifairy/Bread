@@ -4,10 +4,7 @@ using System.Text;
 //购物节点
 var shopNode = new BreadNode()
 {
-    Condition = (context) =>
-    {
-        return (context.StartContent as string) == "shop";
-    },
+    Condition = (context) => (context.StartContent as string) == "shop",
     Callback = (context) =>
     {
         context.Context = new StringBuilder();
@@ -21,10 +18,7 @@ var shopNode = new BreadNode()
 //买手机
 var phoneNode = new BreadNode()
 {
-    Condition = (context) =>
-    {
-        return (context.StartContent as string) == "1";
-    },
+    Condition = (context) => (context.StartContent as string) == "1",
     Callback = (context) =>
     {
         var s = context.Context as StringBuilder;
@@ -36,10 +30,7 @@ var phoneNode = new BreadNode()
 //买电脑
 var computerNode = new BreadNode()
 {
-    Condition = (context) =>
-    {
-        return (context.StartContent as string) == "2";
-    },
+    Condition = (context) => (context.StartContent as string) == "2",
     Callback = (context) =>
     {
         var s = context.Context as StringBuilder;
@@ -52,10 +43,7 @@ var computerNode = new BreadNode()
 //结算
 var completeNode = new BreadNode()
 {
-    Condition = (context) =>
-    {
-        return (context.StartContent as string) == "y";
-    },
+    Condition = (context) => (context.StartContent as string) == "y",
     Callback = (context) =>
     {
         var s = context.Context as StringBuilder;
@@ -76,6 +64,7 @@ while (true)
     Console.Write(">>> ");
     input = Console.ReadLine();
     if (input == null) break;
+    //console用户,输入
     var result = manager.Run("console", input) as string;
     if(result is not null)
     {
