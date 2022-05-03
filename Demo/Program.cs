@@ -30,6 +30,7 @@ var phoneNode = new BreadNode()
         var s = context.Context as StringBuilder;
         s.AppendLine("买了一台手机");
         Console.WriteLine("已购买");
+        context.Status.Pause(); //停留在shop
     }
 };
 //买电脑
@@ -43,7 +44,8 @@ var computerNode = new BreadNode()
     {
         var s = context.Context as StringBuilder;
         s.AppendLine("买了一台电脑");
-        Console.WriteLine("已购买");
+        Console.WriteLine("已购买"); //输出购买信息
+        context.Status.Pause(); //停留在shop
     }
 };
 
@@ -58,22 +60,13 @@ var completeNode = new BreadNode()
     {
         var s = context.Context as StringBuilder;
         Console.WriteLine("结算");
-        context.Output = s.ToString();//输出购买信息
+        context.Output = s.ToString(); //输出购买信息
     }
 };
 
-//购物的子节点是买某东西
 shopNode.SubNodes.Add(phoneNode);
 shopNode.SubNodes.Add(computerNode);
-
-phoneNode.SubNodes.Add(phoneNode); //买了还可以继续买
-phoneNode.SubNodes.Add(computerNode); //如果又想买手机和电脑
-computerNode.SubNodes.Add(computerNode); //买了还可以继续买
-computerNode.SubNodes.Add(phoneNode); //如果又想买手机和电脑
-
-phoneNode.SubNodes.Add(completeNode); //按Y结算
-computerNode.SubNodes.Add(completeNode); //按Y结算
-
+shopNode.SubNodes.Add(completeNode); //按Y结算
 
 BreadManager manager = new(shopNode);
 

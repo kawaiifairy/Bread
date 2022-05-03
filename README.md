@@ -2,6 +2,7 @@
 
 \(不知道叫什么  
 下一次的输入和上一次的输入是有联系的  
+且每个用户之间的输入是互相隔离的  
 看示例qwq  
 
 ## 结构
@@ -14,6 +15,7 @@
 using IlyfairyLib.Utils.Bread;
 using System.Text;
 
+//购物节点
 var shopNode = new BreadNode()
 {
     Condition = (context) =>
@@ -30,6 +32,7 @@ var shopNode = new BreadNode()
     }
 };
 
+//买手机
 var phoneNode = new BreadNode()
 {
     Condition = (context) =>
@@ -41,8 +44,10 @@ var phoneNode = new BreadNode()
         var s = context.Context as StringBuilder;
         s.AppendLine("买了一台手机");
         Console.WriteLine("已购买");
+        context.Status.Pause(); //停留在shop
     }
 };
+//买电脑
 var computerNode = new BreadNode()
 {
     Condition = (context) =>
@@ -53,10 +58,12 @@ var computerNode = new BreadNode()
     {
         var s = context.Context as StringBuilder;
         s.AppendLine("买了一台电脑");
-        Console.WriteLine("已购买");
+        Console.WriteLine("已购买"); //输出购买信息
+        context.Status.Pause(); //停留在shop
     }
 };
 
+//结算
 var completeNode = new BreadNode()
 {
     Condition = (context) =>
@@ -67,22 +74,13 @@ var completeNode = new BreadNode()
     {
         var s = context.Context as StringBuilder;
         Console.WriteLine("结算");
-        context.Output = s.ToString();//输出购买信息
+        context.Output = s.ToString(); //输出购买信息
     }
 };
 
-//购物的子节点是买某东西
 shopNode.SubNodes.Add(phoneNode);
 shopNode.SubNodes.Add(computerNode);
-
-phoneNode.SubNodes.Add(phoneNode); //买了还可以继续买
-phoneNode.SubNodes.Add(computerNode); //如果又想买手机和电脑
-computerNode.SubNodes.Add(computerNode); //买了还可以继续买
-computerNode.SubNodes.Add(phoneNode); //如果又想买手机和电脑
-
-phoneNode.SubNodes.Add(completeNode); //按Y结算
-computerNode.SubNodes.Add(completeNode); //按Y结算
-
+shopNode.SubNodes.Add(completeNode); //按Y结算
 
 BreadManager manager = new(shopNode);
 
@@ -99,26 +97,24 @@ while (true)
     }
 }
 
-
-
 // output:
 /*
->>> shop
-欢迎来购物
-1. 买手机
-2. 买电脑
-y 结算
->>> 1
-已购买
->>> 1
-已购买
->>> 2
-已购买
->>> y
-结算
-输出:
-买了一台手机
-买了一台手机
-买了一台电脑
+    >>> shop
+        欢迎来购物
+        1. 买手机
+        2. 买电脑
+        y 结算
+    >>> 1
+        已购买
+    >>> 1
+        已购买
+    >>> 2
+        已购买
+    >>> y
+        结算
+        输出:
+        买了一台手机
+        买了一台手机
+        买了一台电脑
 */
 ```
