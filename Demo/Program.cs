@@ -1,6 +1,7 @@
 ﻿using IlyfairyLib.Utils.Bread;
 using System.Text;
 
+//购物节点
 var shopNode = new BreadNode()
 {
     Condition = (context) =>
@@ -17,6 +18,7 @@ var shopNode = new BreadNode()
     }
 };
 
+//买手机
 var phoneNode = new BreadNode()
 {
     Condition = (context) =>
@@ -30,6 +32,7 @@ var phoneNode = new BreadNode()
         Console.WriteLine("已购买");
     }
 };
+//买电脑
 var computerNode = new BreadNode()
 {
     Condition = (context) =>
@@ -44,6 +47,7 @@ var computerNode = new BreadNode()
     }
 };
 
+//结算
 var completeNode = new BreadNode()
 {
     Condition = (context) =>
